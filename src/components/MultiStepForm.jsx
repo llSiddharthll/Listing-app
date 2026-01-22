@@ -3,6 +3,7 @@ import axios from "axios";
 import { useDropzone } from "react-dropzone";
 
 const MultiStepForm = () => {
+  const apiUrl = import.meta.env.VITE_BASE_URL;
   const [step, setStep] = useState(1);
   const [files, setFiles] = useState([]);
   const [uploadedImages, setUploadedImages] = useState([]);
@@ -107,7 +108,7 @@ const MultiStepForm = () => {
       });
 
       const response = await axios.post(
-        "http://167.99.97.126/listing_api/images/",
+        `${apiUrl}/listing_api/images/`,
         uploadFormData,
         {
           headers: {
@@ -195,7 +196,7 @@ const MultiStepForm = () => {
       console.log("Submitting payload:", payload);
 
       const response = await axios.post(
-        "http://167.99.97.126/listing_api/listings/",
+        `${apiUrl}/listing_api/listings/`,
         payload,
       );
 
@@ -203,12 +204,25 @@ const MultiStepForm = () => {
       alert("Form submitted successfully!");
       return true;
     } catch (err) {
-      setError(err.response?.data?.message || "Failed to submit form");
+      const status = err?.response?.status;
+      const data = err?.response?.data;
+    
+      // DRF validation error case
+      if (status === 400 && data && typeof data === "object") {
+        setError(data); // { item_sku: ["..."], hsn_code: ["..."] }
+    
+        // also set a general message
+        setError("Please fill out all the required fields (like: Item SKU, HSN Code, etc.).");
+      } else {
+        setError(data?.message || err.message || "Failed to submit form");
+      }
+    
       console.error("Form submission error:", err);
       return false;
     } finally {
       setIsLoading(false);
     }
+
   };
 
   // Handle next step
@@ -219,7 +233,7 @@ const MultiStepForm = () => {
         setStep(2);
       }
     } else if (step === 2) {
-      const success = await submitForm();
+        const success = await submitForm();
       if (success) {
         setStep(3);
       }
@@ -295,20 +309,6 @@ const MultiStepForm = () => {
 
         {/* Main Content Card */}
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
-          {error && (
-            <div className="bg-red-50 border-l-4 border-red-500 p-4 mx-6 mt-6">
-              <div className="flex">
-                <div className="flex-shrink-0">
-                  <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div className="ml-3">
-                  <p className="text-sm text-red-700">{error}</p>
-                </div>
-              </div>
-            </div>
-          )}
 
           <div className="p-8">
             {/* Step 1: Upload Images */}
@@ -997,6 +997,22 @@ const MultiStepForm = () => {
                       </div>
                     </div>
                   </div>
+                  
+                  {/* Error message */}
+                  {error && (
+                    <div className="bg-red-50 border-l-4 border-red-500 p-4 mx-6 mt-6">
+                      <div className="flex">
+                        <div className="flex-shrink-0">
+                          <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                        <div className="ml-3">
+                          <p className="text-sm text-red-700">{error}</p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
