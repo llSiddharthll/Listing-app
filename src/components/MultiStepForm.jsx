@@ -195,13 +195,6 @@ const MultiStepForm = () => {
 
       console.log("Submitting payload:", payload);
 
-      const response = await axios.post(
-        `${apiUrl}/listing_api/listings/`,
-        payload,
-      );
-
-      console.log("Form submitted successfully:", response.data);
-      alert("Form submitted successfully!");
       return true;
     } catch (err) {
       const status = err?.response?.status;
@@ -276,7 +269,7 @@ const MultiStepForm = () => {
             {/* Progress line */}
             <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-200 -translate-y-1/2 z-0"></div>
             <div 
-              className="absolute top-1/2 left-0 h-1 bg-blue-600 -translate-y-1/2 z-10 transition-all duration-500"
+              className="absolute top-1/2 left-0 h-1 bg-slate-600 -translate-y-1/2 z-10 transition-all duration-500"
               style={{ width: `${((step - 1) / 2) * 100}%` }}
             ></div>
             
@@ -284,7 +277,7 @@ const MultiStepForm = () => {
               <div key={stepNum} className="relative z-20 flex flex-col items-center">
                 <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
                   step >= stepNum 
-                    ? "bg-blue-600 text-white shadow-lg shadow-blue-200" 
+                    ? "bg-slate-900 text-white shadow-lg shadow-blue-200" 
                     : "bg-white border-2 border-gray-300 text-gray-400"
                 }`}>
                   {step > stepNum ? (
@@ -296,7 +289,7 @@ const MultiStepForm = () => {
                   )}
                 </div>
                 <span className={`mt-3 font-medium text-sm ${
-                  step >= stepNum ? "text-blue-600" : "text-gray-500"
+                  step >= stepNum ? "text-slate-900" : "text-gray-500"
                 }`}>
                   {stepNum === 1 && "Upload Images"}
                   {stepNum === 2 && "Product Details"}
@@ -324,12 +317,12 @@ const MultiStepForm = () => {
                 <div className="max-w-4xl mx-auto">
                   <div
                     {...getRootProps()}
-                    className="border-3 border-dashed border-gray-300 rounded-2xl p-12 text-center cursor-pointer transition-all duration-300 hover:border-blue-500 hover:bg-blue-50/50"
+                    className="border-3 border-dashed border-gray-300 rounded-2xl p-12 text-center cursor-pointer transition-all duration-300 hover:border-slate-800 hover:bg-blue-50/50"
                   >
                     <input {...getInputProps()} />
                     <div className="flex flex-col items-center justify-center space-y-4">
                       <div className="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center">
-                        <svg className="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-10 h-10 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                       </div>
@@ -347,7 +340,7 @@ const MultiStepForm = () => {
                     <div className="mt-10">
                       <div className="flex items-center justify-between mb-6">
                         <h3 className="text-xl font-semibold text-gray-900">
-                          Selected Images <span className="text-blue-600">({files.length})</span>
+                          Selected Images <span className="text-slate-900">({files.length})</span>
                         </h3>
                         <button
                           onClick={() => setFiles([])}
@@ -410,7 +403,7 @@ const MultiStepForm = () => {
                     <div className="bg-white rounded-xl p-8">
                       <div className="flex items-center space-x-3 mb-8">
                         <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
-                          <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-5 h-5 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                           </svg>
                         </div>
@@ -427,7 +420,7 @@ const MultiStepForm = () => {
                               name="product_id_type"
                               value={formData.product_id_type}
                               onChange={handleInputChange}
-                              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-800 focus:border-transparent transition-all"
                             >
                               <option value="ASIN">ASIN</option>
                               <option value="UPC">UPC</option>
@@ -444,7 +437,7 @@ const MultiStepForm = () => {
                               name="item_sku"
                               value={formData.item_sku}
                               onChange={handleInputChange}
-                              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-800 focus:border-transparent transition-all"
                               required
                             />
                           </div>
@@ -458,7 +451,7 @@ const MultiStepForm = () => {
                               name="title"
                               value={formData.title}
                               onChange={handleInputChange}
-                              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-800 focus:border-transparent transition-all"
                               required
                             />
                           </div>
@@ -472,7 +465,7 @@ const MultiStepForm = () => {
                               name="brand"
                               value={formData.brand}
                               onChange={handleInputChange}
-                              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-800 focus:border-transparent transition-all"
                               required
                             />
                           </div>
@@ -488,7 +481,7 @@ const MultiStepForm = () => {
                               name="product_type"
                               value={formData.product_type}
                               onChange={handleInputChange}
-                              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-800 focus:border-transparent transition-all"
                               required
                             />
                           </div>
@@ -502,7 +495,7 @@ const MultiStepForm = () => {
                               name="quantity"
                               value={formData.quantity}
                               onChange={handleInputChange}
-                              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-800 focus:border-transparent transition-all"
                               min="0"
                               required
                             />
@@ -517,7 +510,7 @@ const MultiStepForm = () => {
                               value={formData.description}
                               onChange={handleInputChange}
                               rows="4"
-                              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+                              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-800 focus:border-transparent transition-all resize-none"
                               required
                             />
                           </div>
@@ -531,14 +524,14 @@ const MultiStepForm = () => {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                           {formData.bullet_points.map((point, index) => (
                             <div key={index} className="flex items-start space-x-3">
-                              <span className="mt-3 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm font-bold">
+                              <span className="mt-3 w-6 h-6 rounded-full bg-blue-100 text-slate-900 flex items-center justify-center text-sm font-bold">
                                 {index + 1}
                               </span>
                               <input
                                 type="text"
                                 value={point}
                                 onChange={(e) => handleBulletPointChange(index, e.target.value)}
-                                className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                                className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-800 focus:border-transparent transition-all"
                                 placeholder={`Enter bullet point ${index + 1}`}
                               />
                             </div>
@@ -1157,7 +1150,7 @@ const MultiStepForm = () => {
                             .filter(p => p.trim() !== "")
                             .map((point, index) => (
                               <li key={index} className="flex items-start space-x-3">
-                                <div className="w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm font-bold mt-1 flex-shrink-0">
+                                <div className="w-6 h-6 rounded-full bg-blue-100 text-slate-900 flex items-center justify-center text-sm font-bold mt-1 flex-shrink-0">
                                   {index + 1}
                                 </div>
                                 <span className="text-gray-700">{point}</span>
@@ -1231,7 +1224,7 @@ const MultiStepForm = () => {
                   disabled={isLoading}
                   className={`ml-auto px-10 py-3 font-medium rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-3 ${
                     step === 1 
-                      ? "bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500" 
+                      ? "bg-slate-900 text-white hover:bg-slate-700 focus:ring-slate-800" 
                       : "bg-green-600 text-white hover:bg-green-700 focus:ring-green-500"
                   }`}
                 >
@@ -1265,7 +1258,7 @@ const MultiStepForm = () => {
                 <div className="flex space-x-4 ml-auto">
                   <button
                     onClick={() => window.location.reload()}
-                    className="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-xl hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all flex items-center space-x-2"
+                    className="px-8 py-3 bg-gradient-to-r from-slate-800 to-purple-600 text-white font-medium rounded-xl hover:from-slate-900 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:ring-offset-2 transition-all flex items-center space-x-2"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
